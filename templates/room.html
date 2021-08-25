@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block body %}
+<div class="card-body" id="messages" style="display: flex; justify-content: center">
+  <div class="card" style="min-width: 60%">
+    <h5 class="card-header" style="text-align: center">{{room}} - Chatroom</h5>
+    <div class="card" id ="all">
+    </div>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+
+setInterval(function(){
+    $.ajax({
+        type: 'GET',
+        url : "/getmessages/{{room}}/",
+        success: function(response){
+            //console.log(response);
+            $("#all").empty();
+            for (var key in response.messages)
+            {
+                var temp="<div class='card-body'> <div class='card w-100' style='padding: 5px 15px; border-radius: 10px; background-color: #e0e0d1; margin-bottom: -10px'><h5 class='card-title'>"+response.messages[key].user+"</h5> <p>"+response.messages[key].value+"</p><h6 style='text-align: right;'>"+response.messages[key].date+"</h6></div></div>";
+                $("#all").append(temp);
+            }
+        },
+        error: function(response){
+            alert('An error occured')
+        }
+    });
+},1000);
+})
+</script>
+<form id="post-form">
+{% csrf_token %}
+  <div class="input-group mb-3 my-3" style="width: 59%; margin: auto">
+  <input type="hidden" name="username" id="username" value="{{username}}"/>
+  <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
+  <input type="text" name="message" class="form-control" id="message" placeholder="Message..." value="" required/>
+  <input type="submit" class="btn btn-primary" value="Send" id="button-addon2">
+  </div>
+</form>
+</div>
+{% endblock %} 
+{% block script %} 
+{% load static %}
+<script src="{% static 'room.js'%}"></script>
+{% endblock %}

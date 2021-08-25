@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block body %}
+<div style="display: flex; justify-content: center; margin-top: 2rem;">
+    <div class="card" style="width: 40%; background-color: rgba(0,0,0,0.09)">
+        <div class="card-header" style="text-align: center;">
+            Chatroom
+        </div>
+        <div class="card-body" style="background-color: rgba(0,0,0,0.09);">
+            <h5 class="card-title">Room name</h5>
+            <form action="checkview" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" name="room_name" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" required>
+                </div>
+                <h5 class="card-title">Username name</h5>
+                <div class="mb-3">
+                    <input type="text" name="username" class="form-control" id="formGroupExampleInput1" placeholder="Example input placeholder1" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success" type="submit">Join room</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
