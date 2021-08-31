@@ -8,13 +8,19 @@ def home(request):
     return render(request, 'home.html')
 
 def room(request, room):
-    username = request.GET.get('username')
-    room_details = Room.objects.get(name = room)
-    return render(request, 'room.html',{
-        'room': room,
-        'username': username,
-        'room_details': room_details
-        })
+    try:
+        username = request.GET.get('username')
+        if username is not None:
+            room_details = Room.objects.get(name = room)
+            return render(request, 'room.html',{
+                'room': room,
+                'username': username,
+                'room_details': room_details
+                })
+        else:
+            return redirect('/')
+    except:
+        return redirect('/')
 
 def check(request):
     if request.method == "POST":
@@ -25,7 +31,9 @@ def check(request):
         else:
             new_room = Room.objects.create(name = room)
             new_room.save()
-            return redirect('/'+room+'/?username='+username)
+            return redirect("/"+room+'/?username='+username)
+    else:
+        return redirect('/')
 
 def send(request):
     message = request.POST['message']
@@ -37,7 +45,11 @@ def send(request):
     return HttpResponse("message sent successfully")
 
 def fetch_messages(request, room):
-    room_details = Room.objects.get(name = room)
+    try:
+        room_details = Room.objects.get(name = room)
 
-    messages = Message.objects.filter(room = room_details.id)
-    return JsonResponse({"messages":list(messages.values())})
+        messages = Message.objects.filter(room = room_details.id)
+        return JsonResponse({"messages":list(messages.values())})
+    except:
+        return redirect('/')
+

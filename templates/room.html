@@ -2,7 +2,7 @@
 <div class="card-body" id="messages" style="display: flex; justify-content: center">
   <div class="card" style="min-width: 60%">
     <h5 class="card-header" style="text-align: center">{{room}} - Chatroom</h5>
-    <div class="card" id ="all">
+    <div class="card" id ="all" style="height: 70vh; overflow: scroll;">
     </div>
   </div>
 </div>
@@ -31,7 +31,9 @@ setInterval(function(){
 </script>
 <form id="post-form">
 {% csrf_token %}
+
   <div class="input-group mb-3 my-3" style="width: 59%; margin: auto">
+  <h5 style="text-align: center; margin-right: 10px">{{username}}</h5>
   <input type="hidden" name="username" id="username" value="{{username}}"/>
   <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
   <input type="text" name="message" class="form-control" id="message" placeholder="Message..." value="" required/>

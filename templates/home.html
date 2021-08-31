@@ -9,11 +9,11 @@
             <form action="check" method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <input type="text" name="room_name" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder" required>
+                    <input type="text" name="room_name" class="form-control" id="formGroupExampleInput" placeholder="Enter room name ..." required>
                 </div>
                 <h5 class="card-title">Username name</h5>
                 <div class="mb-3">
-                    <input type="text" name="username" class="form-control" id="formGroupExampleInput1" placeholder="Example input placeholder1" required>
+                    <input type="text" name="username" class="form-control" id="formGroupExampleInput1" placeholder="Enter username ..." required>
                 </div>
                 <div class="d-grid gap-2">
                     <button class="btn btn-success" type="submit">Join room</button>
