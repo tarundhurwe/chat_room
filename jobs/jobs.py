@@ -5,7 +5,6 @@ from datetime import datetime, timezone
 
 def auto_delete():
     try:
-        print("running")
         rooms = Room.objects.all()
         length = len(rooms)
         for i in rooms:
